@@ -1,0 +1,43 @@
+# Zombie Shooter Porject
+
+# Features
+
+
+# Getting Started
+Clone the repository
+
+## Naming Conventions (outdated)
+- **Classes**: `PascalCase`
+- **Class Methods**: `PascalCase` or `camelCase`, allowing names like `onEvent` or `MyMethod`
+- **Class Properties**: `PascalCase`
+- **Enums**: `PascalCase`
+- **Enum Members**: `PascalCase`
+- **Functions (Exported)**: `PascalCase` or `camelCase`, supporting `useEffect`, `selectData`, etc.
+- **Interfaces**: `PascalCase`, with optional underscores `_` for private properties
+- **Object Literal Methods**: `PascalCase` or `camelCase`
+- **Object Literal Properties**: `PascalCase` or `camelCase`
+- **Parameters**: `camelCase`
+- **Parameter Properties**: `camelCase`
+- **Type Aliases**: `StrictPascalCase`
+- **Type Methods**: `StrictPascalCase` or `strictCamelCase`, allowing `onEvent` or `MyTypeMethod`
+- **Type Parameters**: `StrictPascalCase`
+- **Type Properties**: `strictCamelCase`, `StrictPascalCase`, or `UPPER_CASE` with optional underscores `_`
+- **Variables (Exported Constants)**: `UPPER_CASE` or `PascalCase`
+- **Variables (Functions)**: `PascalCase` or `camelCase`, allowing `useFunctionName` or `customAtom`
+- **Constants (Boolean, Number, String)**: `UPPER_CASE`
+- **File names**: `PascalCase` (`kebab-case` is not favored by Unity)
+
+## Commit Conventions
+* `build`: release the game
+* `chore`: update documentation/code that is old/deprecated and doesn't effect anything
+* `ci`: anything under `.github/workflows`
+* `docs`: updating code comments or external documentation
+* `feat`: a new feature in the code
+* `fix`: fix a bug in the code
+* `perf`: introduce performence gain, list why it gains it
+* `refactor`: refactor ugly code with better practices
+* `revert`: revert a git commit
+* `test`: write unit tests
+* `deps`: update dependencies
+* `core`: update code related to the game
+* `conf`: change configuration files
