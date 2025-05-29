@@ -1,5 +1,6 @@
 ﻿// Copyright 2021, Infima Games. All Rights Reserved.
 
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -10,9 +11,9 @@ namespace InfimaGames.LowPolyShooterPack
     public class CameraLook : MonoBehaviour
     {
         #region FIELDS SERIALIZED
-        
+
         [Header("Settings")]
-        
+
         [Tooltip("Sensitivity when looking around.")]
         [SerializeField]
         private Vector2 sensitivity = new Vector2(1, 1);
@@ -28,11 +29,11 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("The speed at which the look rotation is interpolated.")]
         [SerializeField]
         private float interpolationSpeed = 25.0f;
-        
+
         #endregion
-        
+
         #region FIELDS
-        
+
         /// <summary>
         /// Player Character.
         /// </summary>
@@ -50,9 +51,15 @@ namespace InfimaGames.LowPolyShooterPack
         /// The camera's rotation.
         /// </summary>
         private Quaternion rotationCamera;
+        /// <summary>
+        /// The players camera object
+        /// </summary>
+        private Camera cam;
+
+        private bool shoot;
 
         #endregion
-        
+
         #region UNITY
 
         private void Awake()
@@ -61,6 +68,8 @@ namespace InfimaGames.LowPolyShooterPack
             playerCharacter = ServiceLocator.Current.Get<IGameModeService>().GetPlayerCharacter();
             //Cache the rigidbody.
             playerCharacterRigidbody = playerCharacter.GetComponent<Rigidbody>();
+            //Cache camera from the player
+            cam = playerCharacter.GetCameraWorld();
         }
         private void Start()
         {
@@ -68,6 +77,10 @@ namespace InfimaGames.LowPolyShooterPack
             rotationCharacter = playerCharacter.transform.localRotation;
             //Cache the camera's initial rotation.
             rotationCamera = transform.localRotation;
+        }
+        public void Shoot()
+        {
+            shoot = true;
         }
         private void LateUpdate()
         {
@@ -77,14 +90,17 @@ namespace InfimaGames.LowPolyShooterPack
             frameInput *= sensitivity;
 
             //Yaw.
-            Quaternion rotationYaw = Quaternion.Euler(0.0f, frameInput.x, 0.0f);
+            Quaternion rotationYaw = Quaternion.Euler(0.0f, frameInput.x + (shoot ? 1.0f : 0.0f), 0.0f);
             //Pitch.
-            Quaternion rotationPitch = Quaternion.Euler(-frameInput.y, 0.0f, 0.0f);
-            
+            Quaternion rotationPitch = Quaternion.Euler(-frameInput.y - (shoot ? 1.0f : 0.0f), 0.0f, 0.0f);
+
+            if (shoot)
+                shoot = false;
+
             //Save rotation. We use this for smooth rotation.
             rotationCamera *= rotationPitch;
             rotationCharacter *= rotationYaw;
-            
+
             //Local Rotation.
             Quaternion localRotation = transform.localRotation;
 
@@ -106,9 +122,15 @@ namespace InfimaGames.LowPolyShooterPack
                 //Rotate character.
                 playerCharacterRigidbody.MoveRotation(playerCharacterRigidbody.rotation * rotationYaw);
             }
-            
+
             //Set.
             transform.localRotation = localRotation;
+
+            //Update FOV
+            bool isAim = playerCharacter.IsAiming();
+            bool isSprinting = playerCharacter.IsRunning();
+            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, isAim ? 70.0f : (isSprinting ? 110.0f : 90.0f), .1f);
+
         }
 
         #endregion
