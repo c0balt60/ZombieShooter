@@ -63,6 +63,9 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private bool grounded;
 
+        private bool readyToJump = true;
+        private float jumpCooldown = .25f;
+
         /// <summary>
         /// Player Character.
         /// </summary>
@@ -179,6 +182,30 @@ namespace InfimaGames.LowPolyShooterPack
             
             //Update Velocity.
             Velocity = new Vector3(movement.x, 0.0f, movement.z);
+        }
+
+        private void Jump()
+        {
+            if (!grounded || !readyToJump)
+                return;
+            
+            //Add jump forces
+            rigidBody.AddForce(Vector2.up * 550.0f * 1.5f);
+            rigidBody.AddForce(Vector3.up * 550.0f * 0.5f);
+
+            //If jumping while falling, reset y velocity.
+            Vector3 vel = rigidBody.linearVelocity;
+            if (rigidBody.linearVelocity.y < 0.5f)
+                rigidBody.linearVelocity = new Vector3(vel.x, 0, vel.z);
+            else if (rigidBody.linearVelocity.y > 0)
+                rigidBody.linearVelocity = new Vector3(vel.x, vel.y / 2, vel.z);
+
+            Invoke(nameof(ResetJump), jumpCooldown);
+        }
+
+        private void ResetJump()
+        {
+            readyToJump = true;
         }
 
         /// <summary>
