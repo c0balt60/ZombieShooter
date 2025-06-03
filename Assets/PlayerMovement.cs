@@ -13,12 +13,12 @@ public class PlayerMovement : MonoBehaviour
 
     //Rotation and look
     private float xRotation;
-    private float sensitivity = 50f;
+    private float sensitivity = 100f;
     private float sensMultiplier = 1f;
 
     //Movement
-    public float moveSpeed = 4500;
-    public float maxSpeed = 20;
+    public float moveSpeed = 4000;
+    public float maxSpeed = 16;
     public bool grounded;
     public LayerMask whatIsGround;
 
