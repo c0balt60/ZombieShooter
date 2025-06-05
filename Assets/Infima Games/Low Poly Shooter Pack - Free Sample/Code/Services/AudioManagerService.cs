@@ -3,7 +3,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace InfimaGames.LowPolyShooterPack
+namespace ZombieShooter
 {
     /// <summary>
     /// Manages the spawning and playing of sounds.

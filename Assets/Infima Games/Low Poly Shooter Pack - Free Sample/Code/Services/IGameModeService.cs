@@ -1,6 +1,6 @@
 ﻿// Copyright 2021, Infima Games. All Rights Reserved.
 
-namespace InfimaGames.LowPolyShooterPack
+namespace ZombieShooter
 {
     /// <summary>
     /// Game Mode Service.

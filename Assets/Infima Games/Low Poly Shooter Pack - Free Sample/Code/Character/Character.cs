@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
 
-namespace InfimaGames.LowPolyShooterPack
+namespace ZombieShooter
 {
 	/// <summary>
 	/// Main Character Component. This component handles the most important functions of the character, and interfaces

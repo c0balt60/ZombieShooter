@@ -3,7 +3,7 @@
 using UnityEngine;
 using System.Globalization;
 
-namespace InfimaGames.LowPolyShooterPack.Interface
+namespace ZombieShooter.Interface
 {
     /// <summary>
     /// Current Ammunition Text.

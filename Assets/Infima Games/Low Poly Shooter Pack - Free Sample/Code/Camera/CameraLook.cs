@@ -3,7 +3,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace InfimaGames.LowPolyShooterPack
+namespace ZombieShooter
 {
     /// <summary>
     /// Camera Look. Handles the rotation of the camera.

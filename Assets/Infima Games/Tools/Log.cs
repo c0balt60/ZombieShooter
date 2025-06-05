@@ -1,7 +1,7 @@
 ﻿﻿using System;
 using UnityEngine;
 
-namespace InfimaGames.LowPolyShooterPack
+namespace ZombieShooter
 {
     public static class Log
     {

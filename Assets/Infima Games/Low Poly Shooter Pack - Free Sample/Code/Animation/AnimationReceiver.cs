@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace InfimaGames.LowPolyShooterPack
+namespace ZombieShooter
 {
 	/// <summary>
 	/// This class is helpful when adding weapons alone in the scene that are playing animations.

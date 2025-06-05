@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace InfimaGames.LowPolyShooterPack
+namespace ZombieShooter
 {
     public abstract class WeaponBehaviour : MonoBehaviour
     {

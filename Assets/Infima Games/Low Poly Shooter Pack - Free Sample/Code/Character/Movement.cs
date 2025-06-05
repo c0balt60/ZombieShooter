@@ -3,7 +3,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace InfimaGames.LowPolyShooterPack
+namespace ZombieShooter
 {
     [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
     public class Movement : MovementBehaviour

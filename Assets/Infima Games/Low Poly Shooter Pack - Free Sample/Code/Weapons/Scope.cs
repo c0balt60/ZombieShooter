@@ -3,7 +3,7 @@
 using System;
 using UnityEngine;
 
-namespace InfimaGames.LowPolyShooterPack
+namespace ZombieShooter
 {
     /// <summary>
     /// Weapon Scope.

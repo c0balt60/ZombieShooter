@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace InfimaGames.LowPolyShooterPack
+namespace ZombieShooter
 {
     /// <summary>
     /// Audio Settings used to interact with the AudioManagerService.

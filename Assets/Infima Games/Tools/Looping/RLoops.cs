@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace InfimaGames.LowPolyShooterPack
+namespace ZombieShooter
 {
     public static class RLoops
     {

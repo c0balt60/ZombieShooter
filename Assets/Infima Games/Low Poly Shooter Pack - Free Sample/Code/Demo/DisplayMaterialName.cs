@@ -3,7 +3,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace InfimaGames.LowPolyShooterPack
+namespace ZombieShooter
 {
     /// <summary>
     /// Displays a material's name in the world.

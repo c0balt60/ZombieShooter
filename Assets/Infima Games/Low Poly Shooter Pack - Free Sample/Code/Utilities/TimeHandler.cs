@@ -3,7 +3,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace InfimaGames.LowPolyShooterPack
+namespace ZombieShooter
 {
     /// <summary>
     /// Time Manager.
