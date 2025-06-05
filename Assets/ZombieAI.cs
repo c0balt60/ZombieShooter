@@ -1,38 +1,76 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ZombieMovement : MonoBehaviour
+public class ZombieController : MonoBehaviour
 {
     public float distance;
     public Transform Player;
     public NavMeshAgent navMeshAgent;
     public float rotationSpeed = 360f;
 
-    private Animator PlayerAnim;
+    public int maxHealth = 100;
+    private int currentHealth;
+
+    public Animator PlayerAnim;
+
+    private bool isDead = false;
 
     void Start()
     {
+        currentHealth = maxHealth;
+
         PlayerAnim = GetComponent<Animator>();
 
         navMeshAgent.stoppingDistance = 2f;
-        navMeshAgent.updateRotation = false;  // we rotate manually
-        navMeshAgent.updatePosition = true;   // let NavMeshAgent move the zombie
+        navMeshAgent.updateRotation = false;
+        navMeshAgent.updatePosition = true;
 
         PlayerAnim.SetBool("Z_Run", false);
         PlayerAnim.SetBool("Z_Idle", true);
         PlayerAnim.SetBool("Z_Attack", false);
+        PlayerAnim.SetBool("Z_Dead", false);
 
         Debug.Log("On NavMesh: " + navMeshAgent.isOnNavMesh);
     }
 
+    public void TakeDamage(int damageAmount)
+    {
+        if (isDead) return;
+
+        currentHealth -= damageAmount;
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        isDead = true;
+
+        // Stop movement
+        navMeshAgent.isStopped = true;
+        navMeshAgent.ResetPath();
+
+        // Set only death animation
+        PlayerAnim.SetBool("Z_Run", false);
+        PlayerAnim.SetBool("Z_Idle", false);
+        PlayerAnim.SetBool("Z_Attack", false);
+        PlayerAnim.SetBool("Z_Dead", true);
+
+        // Optional: disable the collider or any interactions here
+
+        // Destroy the zombie after 3 seconds (adjust based on your animation length)
+        Destroy(gameObject, 3f);
+    }
+
     void Update()
     {
-        if (Player == null || navMeshAgent == null) return;
+        if (isDead || Player == null || navMeshAgent == null) return;
 
         distance = Vector3.Distance(transform.position, Player.position);
 
-        // Only move and rotate if far enough from player
         if (distance > navMeshAgent.stoppingDistance)
         {
             if (navMeshAgent.isOnNavMesh)
@@ -40,7 +78,6 @@ public class ZombieMovement : MonoBehaviour
                 navMeshAgent.SetDestination(Player.position);
             }
 
-            // Rotate based on path direction, not direct player direction
             Vector3 velocity = navMeshAgent.desiredVelocity;
             velocity.y = 0f;
             if (velocity.magnitude > 0.1f)
@@ -53,14 +90,12 @@ public class ZombieMovement : MonoBehaviour
                 );
             }
 
-            // Animate running
             PlayerAnim.SetBool("Z_Run", true);
             PlayerAnim.SetBool("Z_Idle", false);
             PlayerAnim.SetBool("Z_Attack", false);
         }
         else
         {
-            // Within attack range
             navMeshAgent.ResetPath();
 
             PlayerAnim.SetBool("Z_Run", false);
@@ -68,7 +103,6 @@ public class ZombieMovement : MonoBehaviour
             PlayerAnim.SetBool("Z_Attack", true);
         }
     }
-
 }
 
 
