@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "ZombieFPS.sln"
+    "dotnet.defaultSolution": "zombie-shooter.sln"
 }
