@@ -39,6 +39,12 @@ public class Projectile : MonoBehaviour {
 		//Ignore collisions with other projectiles.
 		if (collision.gameObject.GetComponent<Projectile>() != null)
 			return;
+
+		//Deal damage to zombie
+		if (collision.gameObject.GetComponent<ZombieMovement>() != null)
+		{
+			
+		}
 		
 		// //Ignore collision if bullet collides with "Player" tag
 		// if (collision.gameObject.CompareTag("Player")) 
@@ -56,14 +62,14 @@ public class Projectile : MonoBehaviour {
 		//
 		//If destroy on impact is false, start 
 		//coroutine with random destroy timer
-		if (!destroyOnImpact) 
+		if (!destroyOnImpact)
 		{
-			StartCoroutine (DestroyTimer ());
+			StartCoroutine(DestroyTimer());
 		}
 		//Otherwise, destroy bullet on impact
-		else 
+		else
 		{
-			Destroy (gameObject);
+			Destroy(gameObject);
 		}
 
 		//If bullet collides with "Blood" tag
