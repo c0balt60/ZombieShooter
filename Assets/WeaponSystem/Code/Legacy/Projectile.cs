@@ -41,9 +41,12 @@ public class Projectile : MonoBehaviour {
 			return;
 
 		//Deal damage to zombie
-		if (collision.gameObject.GetComponent<ZombieMovement>() != null)
+		if (collision.gameObject.GetComponent<ZombieController>() != null)
 		{
-			
+			Debug.Log("Damaging Zombie");
+
+			ZombieController zombie = collision.gameObject.GetComponent<ZombieController>();
+			zombie.TakeDamage(35);
 		}
 		
 		// //Ignore collision if bullet collides with "Player" tag

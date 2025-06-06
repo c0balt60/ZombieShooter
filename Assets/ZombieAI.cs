@@ -28,7 +28,7 @@ public class ZombieController : MonoBehaviour
         PlayerAnim.SetBool("Z_Run", false);
         PlayerAnim.SetBool("Z_Idle", true);
         PlayerAnim.SetBool("Z_Attack", false);
-        PlayerAnim.SetBool("Z_Dead", false);
+        PlayerAnim.SetBool("Z_Death", false);
 
         Debug.Log("On NavMesh: " + navMeshAgent.isOnNavMesh);
     }
@@ -47,6 +47,7 @@ public class ZombieController : MonoBehaviour
 
     void Die()
     {
+        Debug.Log("Zombie killed");
         isDead = true;
 
         // Stop movement
@@ -57,9 +58,8 @@ public class ZombieController : MonoBehaviour
         PlayerAnim.SetBool("Z_Run", false);
         PlayerAnim.SetBool("Z_Idle", false);
         PlayerAnim.SetBool("Z_Attack", false);
-        PlayerAnim.SetBool("Z_Dead", true);
-
-        // Optional: disable the collider or any interactions here
+        //PlayerAnim.SetBool("Z_Dead", true);
+        PlayerAnim.SetBool("Z_Death", true);
 
         // Destroy the zombie after 3 seconds (adjust based on your animation length)
         Destroy(gameObject, 3f);
@@ -93,6 +93,7 @@ public class ZombieController : MonoBehaviour
             PlayerAnim.SetBool("Z_Run", true);
             PlayerAnim.SetBool("Z_Idle", false);
             PlayerAnim.SetBool("Z_Attack", false);
+            PlayerAnim.SetBool("Z_Death", false);
         }
         else
         {
@@ -101,6 +102,7 @@ public class ZombieController : MonoBehaviour
             PlayerAnim.SetBool("Z_Run", false);
             PlayerAnim.SetBool("Z_Idle", false);
             PlayerAnim.SetBool("Z_Attack", true);
+            PlayerAnim.SetBool("Z_Death", false);
         }
     }
 }

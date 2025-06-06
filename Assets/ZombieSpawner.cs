@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,6 +35,7 @@ public class ZombieSpawner : MonoBehaviour
         // If all zombies are dead and we're not already starting a wave
         if (!waveInProgress && activeZombies.Count == 0)
         {
+            numberOfZombiesToSpawn = numberOfZombiesToSpawn + 5;
             waveInProgress = true;
             waveTimer = waveDelay;
         }
@@ -57,10 +59,12 @@ public class ZombieSpawner : MonoBehaviour
 
         for (int i = 0; i < numberOfZombiesToSpawn; i++)
         {
-            int randomIndex = Random.Range(0, spawnPoints.Length);
+            int randomIndex = UnityEngine.Random.Range(0, spawnPoints.Length);
             Transform spawnPoint = spawnPoints[randomIndex].transform;
 
             GameObject zombie = Instantiate(zombiePrefab, spawnPoint.position, spawnPoint.rotation);
+            zombie.name = "Zombie-" + Guid.NewGuid().ToString();
+            zombie.SetActive(true);
             activeZombies.Add(zombie);
         }
     }
