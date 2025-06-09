@@ -11,7 +11,7 @@ namespace ZombieShooter
         #region FIELDS SERIALIZED
 
         [Header("Audio Clips")]
-        
+
         [Tooltip("The audio clip that is played while walking.")]
         [SerializeField]
         private AudioClip audioClipWalking;
@@ -57,7 +57,7 @@ namespace ZombieShooter
         /// Attached AudioSource.
         /// </summary>
         private AudioSource audioSource;
-        
+
         /// <summary>
         /// True if the character is currently grounded.
         /// </summary>
@@ -74,7 +74,7 @@ namespace ZombieShooter
         /// The player character's equipped weapon.
         /// </summary>
         private WeaponBehaviour equippedWeapon;
-        
+
         /// <summary>
         /// Array of RaycastHits used for ground checking.
         /// </summary>
@@ -94,7 +94,7 @@ namespace ZombieShooter
         }
 
         /// Initializes the FpsController on start.
-        protected override  void Start()
+        protected override void Start()
         {
             //Rigidbody Setup.
             rigidBody = GetComponent<Rigidbody>();
@@ -117,15 +117,15 @@ namespace ZombieShooter
             Vector3 extents = bounds.extents;
             //Radius.
             float radius = extents.x - 0.01f;
-            
+
             //Cast. This checks whether there is indeed ground, or not.
             Physics.SphereCastNonAlloc(bounds.center, radius, Vector3.down,
-                groundHits, extents.y - radius * 0.5f, ~0, QueryTriggerInteraction.Ignore);
-            
+                groundHits, extents.y - radius * 1.5f, ~0, QueryTriggerInteraction.Ignore);
+
             //We can ignore the rest if we don't have any proper hits.
-            if (!groundHits.Any(hit => hit.collider != null && hit.collider != capsule)) 
+            if (!groundHits.Any(hit => hit.collider != null && hit.collider != capsule))
                 return;
-            
+
             //Store RaycastHits.
             for (var i = 0; i < groundHits.Length; i++)
                 groundHits[i] = new RaycastHit();
@@ -133,22 +133,22 @@ namespace ZombieShooter
             //Set grounded. Now we know for sure that we're grounded.
             grounded = true;
         }
-			
+
         protected override void FixedUpdate()
         {
             //Move.
             MoveCharacter();
-            
+
             //Unground.
             grounded = false;
         }
 
         /// Moves the camera to the character, processes jumping and plays sounds every frame.
-        protected override  void Update()
+        protected override void Update()
         {
             //Get the equipped weapon!
             equippedWeapon = playerCharacter.GetInventory().GetEquipped();
-            
+
             //Play Sounds!
             PlayFootstepSounds();
         }
@@ -165,9 +165,9 @@ namespace ZombieShooter
             Vector2 frameInput = playerCharacter.GetInputMovement();
             //Calculate local-space direction by using the player's input.
             var movement = new Vector3(frameInput.x, 0.0f, frameInput.y);
-            
+
             //Running speed calculation.
-            if(playerCharacter.IsRunning())
+            if (playerCharacter.IsRunning())
                 movement *= speedRunning;
             else
             {
@@ -179,7 +179,7 @@ namespace ZombieShooter
             movement = transform.TransformDirection(movement);
 
             #endregion
-            
+
             //Update Velocity.
             Velocity = new Vector3(movement.x, 0.0f, movement.z);
         }
@@ -188,7 +188,7 @@ namespace ZombieShooter
         {
             if (!grounded || !readyToJump)
                 return;
-            
+
             //Add jump forces
             rigidBody.AddForce(Vector2.up * 550.0f * 1.5f);
             rigidBody.AddForce(Vector3.up * 550.0f * 0.5f);
